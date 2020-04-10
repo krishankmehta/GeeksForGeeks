@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+
+int count_set_bits(int value)
+{
+    int count = 0;
+    if(value<=0)
+    {
+        return 0;
+    }
+    while(value!=0)
+    {
+        value&=(value-1);
+        ++count;
+    }
+    return count;
+}
+
+
+int main()
+{
+    
+    int value = 16;
+    int temp = count_set_bits(value);
+    printf("%d",temp);
+    
+}
