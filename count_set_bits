@@ -1,6 +1,7 @@
 #include<stdio.h>
+#include<stdbool.h>
 
-
+//O(Log N)
 int count_set_bits(int value)
 {
     int count = 0;
@@ -16,12 +17,33 @@ int count_set_bits(int value)
     return count;
 }
 
+//O(Log N)
+
+bool power_of_two(int value)
+{
+    if(value<=0)
+    {
+        return false;
+    }
+    if(!(value&(value-1)))
+    {
+        return true;
+    }
+    return false;
+}
+
 
 int main()
 {
     
-    int value = 16;
+    int value = 35;
     int temp = count_set_bits(value);
-    printf("%d",temp);
+    printf("%d\n",temp);
+    if(power_of_two(value))
+    {
+        printf("True");
+    }
+    else
+    printf("False");
     
 }
