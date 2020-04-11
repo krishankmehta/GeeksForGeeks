@@ -33,6 +33,25 @@ bool power_of_two(int value)
 }
 
 
+//O(Log N)
+bool power_of_four(int value)
+{
+    if(value<=0)
+    {
+        return false;
+    }
+    
+    if(!((value)&(value-1)))
+    {
+        if(value&0x55555555)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 int main()
 {
     
@@ -41,9 +60,15 @@ int main()
     printf("%d\n",temp);
     if(power_of_two(value))
     {
-        printf("True");
+        printf("True\n");
     }
     else
-    printf("False");
+    printf("False\n");
+    if(power_of_four(1))
+    {
+        printf("True\n");
+    }
+    else
+    printf("False\n");
     
 }
