@@ -1,6 +1,12 @@
 #include<stdio.h>
 #include<stdbool.h>
 
+
+
+/**********The following problems work on ((n)&(n-1)) logic **************/
+
+
+
 //O(Log N)
 int count_set_bits(int value)
 {
