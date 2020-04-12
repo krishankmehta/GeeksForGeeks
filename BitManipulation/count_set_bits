@@ -1,12 +1,6 @@
 #include<stdio.h>
 #include<stdbool.h>
 
-
-
-/**********The following problems work on ((n)&(n-1)) logic **************/
-
-
-
 //O(Log N)
 int count_set_bits(int value)
 {
@@ -38,8 +32,6 @@ bool power_of_two(int value)
     return false;
 }
 
-
-//O(Log N)
 bool power_of_four(int value)
 {
     if(value<=0)
@@ -58,23 +50,48 @@ bool power_of_four(int value)
 }
 
 
+//O(Log N)
+bool find_parity(int value)
+{
+    bool parity_flag = false;
+    
+    while(value)
+    {
+        parity_flag = !parity_flag;
+        value&=(value-1);
+    }
+    return parity_flag;
+}
+
+
 int main()
 {
     
-    int value = 35;
+    int value = 16;
     int temp = count_set_bits(value);
     printf("%d\n",temp);
     if(power_of_two(value))
     {
-        printf("True\n");
+        printf("Is a power of Two\n");
     }
     else
-    printf("False\n");
-    if(power_of_four(1))
+    printf("Is not a power of Two\n");
+    
+    if(power_of_four(value))
     {
-        printf("True\n");
+        printf("Is a power of four\n");
     }
     else
-    printf("False\n");
+    printf("IS not a power of four\n");
+    
+    if(find_parity(value))
+    {
+        printf("Odd parity\n");
+    }
+    else
+    {
+        printf("Even parity\n");
+    }
     
 }
+
