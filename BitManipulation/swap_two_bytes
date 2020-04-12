@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdbool.h>
+
+
+
+
+
+int swap_two_nibbles(int x)
+{
+    
+    return ((x & 0x0F) << 4)|((x & 0xF0) >> 4);
+    
+}
+
+
+
+
+int main()
+{
+    
+    int temp = swap_two_nibbles(0xCD);
+    printf("%x",temp);
+}
+
