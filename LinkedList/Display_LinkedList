@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node * next;
+};
+
+struct Node* first = NULL;
+
+
+
+void create(int arr[], int size)
+{
+    
+    struct Node *p,*t;
+    first = (struct Node*)(malloc(sizeof(struct Node)));
+    first->data = arr[0];
+    first->next = NULL;
+    p = first;
+    
+    for(int i=1;i<size;i++)
+    {
+        t = (struct Node*)(malloc(sizeof(struct Node)));
+        t->data = arr[i];
+        t->next = NULL;
+        p->next = t;
+        p = p->next;
+    }
+}
+void display()
+{
+    
+    while(first!=NULL)
+    {
+        printf("%d ",first->data);
+        first = first->next;
+    }
+}
+
+
+int main()
+{
+    int arr[] = {1,2,3,4,5,6,7,8};
+    int size_t = sizeof(arr)/sizeof(arr[0]);
+    create(arr,size_t);
+    display();
+}
