@@ -29,13 +29,55 @@ void create(int arr[], int size)
         p = p->next;
     }
 }
-void display()
+void display(struct Node *temp)
 {
     
-    while(first!=NULL)
+    while(temp!=NULL)
     {
-        printf("%d ",first->data);
-        first = first->next;
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+void reverse_display(struct Node *temp)
+{
+    if(temp!= NULL)
+    {
+        reverse_display(temp->next);
+        printf("%d ",temp->data);
+    }
+}
+
+
+int count_nodes(struct Node* temp)
+{
+    if(temp!= NULL)
+    {
+        return count_nodes(temp->next) + 1;
+    }
+}
+
+int sum_nodes(struct Node *temp)
+{
+    int sum = 0;
+    while(temp!=NULL)
+    {
+        sum+=temp->data;
+        temp = temp->next;
+    }
+    return sum;
+}
+
+int sum_nodes_recursive(struct Node *temp)
+{
+    if(temp==0)
+    {
+        return 0;
+    }
+    else
+    {
+        return sum_nodes_recursive(temp->next) + temp->data;
     }
 }
 
@@ -45,5 +87,12 @@ int main()
     int arr[] = {1,2,3,4,5,6,7,8};
     int size_t = sizeof(arr)/sizeof(arr[0]);
     create(arr,size_t);
-    display();
+    display(first);
+    reverse_display(first);
+    int nodes = count_nodes(first);
+    printf("\n%d",nodes);
+    int sum = sum_nodes(first);
+    printf("\n%d",sum);
+    int sum_2 = sum_nodes_recursive(first);
+    printf("\n%d",sum_2);
 }
