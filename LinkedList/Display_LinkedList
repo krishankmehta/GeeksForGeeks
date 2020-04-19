@@ -1,5 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<limits.h>
+#include<stdbool.h>
+
+
 
 struct Node
 {
@@ -81,10 +85,104 @@ int sum_nodes_recursive(struct Node *temp)
     }
 }
 
+int find_max(struct Node* temp)
+{
+    int max = INT_MIN;
+    while(temp!=NULL)
+    {
+            if(temp->data > max)
+            {
+                max = temp->data;
+            }
+            temp = temp->next;
+    }
+return max;
+}
+
+int find_max_recursive(struct Node* temp)
+{
+    static int max  = INT_MIN;
+    if(temp == NULL)
+    {
+        return INT_MIN;
+    }
+    max = find_max_recursive(temp->next);
+    if(max>temp->data)
+    {
+        return max;
+    }
+    else
+    {
+        return temp->data;
+    }
+}
+
+bool search(struct Node *temp, int val)
+{
+    if(temp==NULL)
+    {
+        return false;
+    }
+    if(temp->data == val)
+    {
+        return true;
+    }
+    
+    return search(temp->next,val);
+}
+
+void insert(struct Node *temp, int pos, int val)
+{
+ 
+ if(pos < 0 || pos > count_nodes(first))
+ return;
+ 
+ struct Node* newnode  = (struct Node*)malloc(sizeof(struct Node));
+ newnode->data = val;
+ newnode->next = NULL;
+ 
+ if(pos == 1)
+ {
+     newnode->next = temp;
+     first = newnode;
+ }
+ else
+ {
+     while(pos-1)
+     {
+         temp = temp->next;
+         --pos;
+     }
+     newnode->next = temp->next->next;
+     temp->next = newnode;
+ }
+}
+
+struct Node *linked_list_insert(int data)
+{
+    static struct Node *q = NULL;
+    static struct Node *head = NULL;
+    static int count = 1;
+        struct Node* nodes = (struct Node*)malloc(sizeof(struct Node));
+        nodes->data = data;
+        nodes->next = NULL;
+        if(count == 1)
+        {
+           head = nodes;
+           ++count;
+           q = head;
+           return head;
+        }
+         q->next = nodes;
+         q = nodes;
+         return head;
+}
+
+
 
 int main()
 {
-    int arr[] = {1,2,3,4,5,6,7,8};
+    int arr[] = {11,24,23,42,56,16,127,98};
     int size_t = sizeof(arr)/sizeof(arr[0]);
     create(arr,size_t);
     display(first);
@@ -95,4 +193,37 @@ int main()
     printf("\n%d",sum);
     int sum_2 = sum_nodes_recursive(first);
     printf("\n%d",sum_2);
+    int max = find_max(first);
+    printf("\n%d",max);
+    int max_2 = find_max_recursive(first);
+    printf("\n%d",max_2);
+    if(search(first,42))
+    {
+        printf("\nTrue");
+    }
+    else
+    {
+        printf("\nFalse");
+    }
+    printf("\n");
+    int position = 3;
+    int val = 20;
+    insert(first,position,val);
+    insert(first,4,489);
+    while(first)
+    {
+        printf("%d ",first->data);
+        first = first->next;
+    }
+    struct Node *ptr = linked_list_insert(45);
+    ptr = linked_list_insert(100);
+    ptr = linked_list_insert(20);
+    ptr = linked_list_insert(50);
+    ptr = linked_list_insert(70);
+    printf("\n");
+    while(ptr)
+    {
+        printf("%d ",ptr->data);
+        ptr = ptr->next;
+    }
 }
