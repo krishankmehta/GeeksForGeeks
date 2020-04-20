@@ -179,6 +179,77 @@ struct Node *linked_list_insert(int data)
 }
 
 
+struct Node* delete(struct Node* temp,int position)
+{
+    
+    struct Node * p = temp;
+    struct Node * q = NULL;
+    if(position==1)
+    {
+        temp = temp->next;
+        free(p);
+        return temp;
+    }
+    while(position-1)
+    {
+        q = p;
+        p = p->next;
+        --position;
+    }
+    q->next = p->next;
+    free(p);
+    return temp;
+    // struct Node* temp_ptr = temp;
+    // temp = temp->next;
+    // free(temp_ptr);
+    // return temp;
+}
+
+void remove_duplicate(struct Node* temp)
+{
+    struct Node *q = temp;
+    struct Node *p = temp->next;
+    
+    while(p)
+    {
+    if(q->data == p->data)
+    {
+        q->next = p->next;
+        p = p->next;
+    }
+    else
+    {
+    q = q->next;
+    p = p->next;
+    }
+    }
+    
+    //10 20 20 30 40 40 50
+}
+
+
+void reverse(struct Node** temp)
+{
+    
+    
+    struct Node *p = *temp;
+    struct Node *q = NULL;
+    struct Node *ptr = NULL;
+    
+    
+    while(p!=NULL)
+    {
+        ptr = p->next;
+        p->next = q;
+        q = p;
+        p = ptr;
+    }
+    *temp = q;
+    
+    //10 20 30 40 50 60 70
+}
+
+
 
 int main()
 {
@@ -221,9 +292,46 @@ int main()
     ptr = linked_list_insert(50);
     ptr = linked_list_insert(70);
     printf("\n");
+    // while(ptr)
+    // {
+    //     printf("%d ",ptr->data);
+    //     ptr = ptr->next;
+    // }
+    int pos = 1;
+    ptr = delete(ptr,pos);
     while(ptr)
     {
         printf("%d ",ptr->data);
         ptr = ptr->next;
     }
+    printf("\n");
+    struct Node *rem = linked_list_insert(10);
+    rem = linked_list_insert(20);
+    rem = linked_list_insert(20);
+    rem = linked_list_insert(30);
+    rem = linked_list_insert(40);
+    rem = linked_list_insert(40);
+    rem = linked_list_insert(50);
+    rem = linked_list_insert(60);
+    rem = linked_list_insert(70);
+    rem = linked_list_insert(70);
+    rem = linked_list_insert(70);
+    rem = linked_list_insert(80);
+    rem = linked_list_insert(80);
+    rem = linked_list_insert(90);
+    remove_duplicate(rem);
+    struct Node *rem_ptr = rem;
+    while(rem_ptr)
+    {
+        printf("%d ",rem_ptr->data);
+        rem_ptr = rem_ptr->next;
+    }
+    printf("\n");
+    reverse(&rem);
+    while(rem)
+    {
+        printf("%d ",rem->data);
+        rem = rem->next;
+    }
+    
 }
