@@ -1,0 +1,107 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+struct Node
+{
+    
+    int data;
+    struct Node *next;
+};
+
+
+
+struct Queue 
+{
+    struct Node *front;
+    struct Node *rear;
+    //struct queue *q;
+};
+// struct Queue qq; 
+
+// struct Queue* q = &qq; 
+
+
+void enque(struct Queue *q, int data)
+{
+    
+    struct Node* newnode = (struct Node*)malloc(sizeof(struct Node*));
+    newnode->data = data;
+    newnode->next = NULL;
+    if(q->front==NULL)
+    {
+        q->front = newnode;
+    }
+    else
+    {
+        q->rear->next = newnode;
+    }
+    
+    q->rear = newnode;
+    q->rear->next = q->front;
+        
+}
+
+void display(struct Queue *q)
+{
+    
+    struct Node *temp = q->front;
+    while(temp->next!=q->front)
+    {
+        printf("%d ",temp->data);
+        temp = temp ->next;
+    }
+    printf("%d ",temp->data);
+    printf("\n");
+}
+
+int deque(struct Queue* q)
+{
+    
+    if(q->front == NULL)
+    {
+        printf("QUEUE is EMPTY");
+        return -1;
+    }
+    int value = 0;
+    if(q->front == q->rear)
+    {
+        value = q->front->data;
+        free(q->front);
+        q->front = NULL;
+        q->rear = NULL;
+    }
+    else
+    {
+        struct Node *temp = q->front;
+        value = q->front->data;
+        q->front = q->front->next;
+        free(temp);
+        q->rear->next = q->front;
+    }
+
+    return value;
+}
+
+
+int main()
+{
+    struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue*));
+    q->front = q->rear = NULL;
+    int x = 0;
+    enque(q,10);
+    enque(q,20);
+    enque(q,30);
+    enque(q,40);
+    display(q);
+    x = deque(q);
+    printf("%d",x);
+    printf("\n");
+    x = deque(q);
+    printf("%d",x);
+    printf("\n");
+    enque(q,400);
+    display(q);
+
+}
